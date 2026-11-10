@@ -1,2 +1,28 @@
-# my-first-app
-A new public GitHub repository created from Copilot Chat
+# My First HTML Project
+
+هذا مستودع يحتوي على صفحة HTML بسيطة جاهزة للتشغيل مباشرة.
+
+## التشغيل
+
+1. افتح ملف `index.html` في المتصفح.
+2. أو استخدم خادم محلي بسيط مثل:
+
+```bash
+python3 -m http.server 8000
+```
+
+ثم افتح الرابط:
+
+```text
+http://localhost:8000
+```
+
+## الملفات
+
+- `index.html` — هيكل الصفحة
+- `styles.css` — التنسيق
+- `script.js` — السلوك البسيط
+
+## ملاحظات
+
+هذا مثال أولي يمكن تطويره إلى موقع كامل أو صفحة عرض.
