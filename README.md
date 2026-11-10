@@ -1,28 +1,25 @@
-# My First HTML Project
+# Translate
 
-هذا مستودع يحتوي على صفحة HTML بسيطة جاهزة للتشغيل مباشرة.
+A minimalist, Apple-inspired translation web app with automatic translation and text-to-speech.
 
-## التشغيل
+## Features
 
-1. افتح ملف `index.html` في المتصفح.
-2. أو استخدم خادم محلي بسيط مثل:
+- Auto-detect or selected source language
+- Automatic translation after typing pauses
+- Arabic as the default target language
+- Copy and clear controls
+- Listen to source or translated text using the Web Speech API
+- Light and dark appearance based on system preferences
+- Responsive layout for phones, tablets, and desktop
+
+## Run locally
+
+Open `index.html` in a browser, or serve the folder:
 
 ```bash
-python3 -m http.server 8000
+npx serve .
 ```
 
-ثم افتح الرابط:
+## Translation API
 
-```text
-http://localhost:8000
-```
-
-## الملفات
-
-- `index.html` — هيكل الصفحة
-- `styles.css` — التنسيق
-- `script.js` — السلوك البسيط
-
-## ملاحظات
-
-هذا مثال أولي يمكن تطويره إلى موقع كامل أو صفحة عرض.
+This project uses the free MyMemory Translation API. No API key is required.

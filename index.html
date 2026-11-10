@@ -1,99 +1,86 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>مستودع HTML</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <header class="hero">
-      <nav class="nav container">
-        <div class="logo">MyApp</div>
-        <div class="nav-links">
-          <a href="#features">المميزات</a>
-          <a href="#about">من نحن</a>
-          <a href="#contact">تواصل</a>
-        </div>
-      </nav>
-
-      <div class="hero-content container">
-        <div class="hero-text">
-          <p class="badge">نسخة تجريبية</p>
-          <h1>أضف مشروعك الأول بسهولة</h1>
-          <p>
-            صفحة HTML حديثة ومريحة، مناسبة لعرض فكرة، منتج، أو مشروع صغير.
-          </p>
-          <div class="buttons">
-            <button class="primary" id="cta-btn">ابدأ الآن</button>
-            <button class="secondary">شاهد العرض</button>
-          </div>
-        </div>
-
-        <div class="hero-card">
-          <div class="card-header">
-            <span class="dot red"></span>
-            <span class="dot yellow"></span>
-            <span class="dot green"></span>
-          </div>
-          <div class="card-body">
-            <h3>مؤشرات المشروع</h3>
-            <ul>
-              <li><strong>90%</strong> جاهز</li>
-              <li><strong>5+</strong> ميزات</li>
-              <li><strong>24/7</strong> دعم</li>
-            </ul>
-          </div>
-        </div>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light dark" />
+  <title>Translate</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app">
+    <header class="header">
+      <div class="brand">
+        <span class="brand-icon" aria-hidden="true">🌐</span>
+        <h1>Translate</h1>
       </div>
+      <button id="themeToggle" class="icon-button" type="button" aria-label="Toggle appearance">
+        <span aria-hidden="true">◐</span>
+      </button>
     </header>
 
-    <main>
-      <section id="features" class="features container">
-        <h2>لماذا هذا المشروع؟</h2>
-        <div class="feature-grid">
-          <article class="feature-item">
-            <div class="icon">⚡</div>
-            <h3>سريع</h3>
-            <p>بنية بسيطة وسريعة للتنفيذ دون تعقيد.</p>
-          </article>
-
-          <article class="feature-item">
-            <div class="icon">🎨</div>
-            <h3>تصميم عصري</h3>
-            <p>واجهة مرنة ومناسبة للموبايل وسطح المكتب.</p>
-          </article>
-
-          <article class="feature-item">
-            <div class="icon">🔒</div>
-            <h3>آمن</h3>
-            <p>هيكل نظيف يسهل توسيع المشروع لاحقًا.</p>
-          </article>
-        </div>
-      </section>
-
-      <section id="about" class="about container">
-        <div class="about-text">
-          <p class="section-tag">من نحن</p>
-          <h2>نصنع حلولًا بسيطة وفعالة</h2>
-          <p>
-            هذا المشروع مثال عملي لتجربة صفحة HTML ثابتة يمكن تطويرها إلى موقع كامل,
-            متجر, أو واجهة تطبيق.
-          </p>
-        </div>
-      </section>
-    </main>
-
-    <footer id="contact" class="footer">
-      <div class="container footer-wrap">
-        <p>© 2026 MyApp</p>
-        <a href="mailto:hello@example.com">hello@example.com</a>
+    <section class="language-bar" aria-label="Language selection">
+      <div class="language-field">
+        <label for="sourceLanguage">From</label>
+        <select id="sourceLanguage">
+          <option value="auto" selected>Auto-detect</option>
+          <option value="en">English</option>
+          <option value="ar">Arabic</option>
+          <option value="fr">French</option>
+          <option value="de">German</option>
+          <option value="es">Spanish</option>
+          <option value="tr">Turkish</option>
+          <option value="zh-CN">Chinese</option>
+        </select>
       </div>
-    </footer>
 
-    <script src="script.js"></script>
-  </body>
+      <button id="swapLanguages" class="icon-button swap" type="button" aria-label="Swap languages">
+        ⇄
+      </button>
+
+      <div class="language-field">
+        <label for="targetLanguage">To</label>
+        <select id="targetLanguage">
+          <option value="ar" selected>Arabic</option>
+          <option value="en">English</option>
+          <option value="fr">French</option>
+          <option value="de">German</option>
+          <option value="es">Spanish</option>
+          <option value="tr">Turkish</option>
+          <option value="zh-CN">Chinese</option>
+        </select>
+      </div>
+    </section>
+
+    <section class="cards">
+      <article class="card">
+        <div class="card-top">
+          <span class="card-label">Source text</span>
+          <button id="clearInput" class="text-button" type="button">Clear</button>
+        </div>
+        <textarea id="sourceText" placeholder="Enter text" spellcheck="false"></textarea>
+        <div class="card-actions">
+          <button id="copySource" class="action-button" type="button">Copy</button>
+          <button id="speakSource" class="action-button" type="button">Listen</button>
+        </div>
+      </article>
+
+      <article class="card output">
+        <div class="card-top">
+          <span class="card-label">Translation</span>
+          <span id="status" class="status" role="status"></span>
+        </div>
+        <textarea id="targetText" placeholder="Translation" readonly></textarea>
+        <div class="card-actions">
+          <button id="copyTarget" class="action-button" type="button">Copy</button>
+          <button id="speakTarget" class="action-button" type="button">Listen</button>
+        </div>
+      </article>
+    </section>
+
+    <p class="footer">Powered by MyMemory · Works best in Chrome, Edge, or Safari</p>
+  </main>
+
+  <script src="app.js"></script>
+</body>
 </html>
