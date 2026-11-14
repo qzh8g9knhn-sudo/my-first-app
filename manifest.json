@@ -1,7 +1,7 @@
 {
   "name": "Translate",
   "short_name": "Translate",
-  "description": "A minimalist translation web app with automatic translation and text-to-speech.",
+  "description": "A minimalist, fast translation app. Translate text between Arabic, English, French, German, Spanish, Turkish, Chinese and more with text-to-speech.",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#f5f5f7",
