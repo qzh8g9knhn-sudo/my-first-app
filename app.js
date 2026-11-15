@@ -7,6 +7,9 @@ const settingsBtn = document.getElementById("settingsBtn");
 const settingsModal = document.getElementById("settingsModal");
 const closeSettings = document.getElementById("closeSettings");
 const micSource = document.getElementById("micSource");
+const historyList = document.getElementById("historyList");
+const clearHistoryBtn = document.getElementById("clearHistory");
+const shareTarget = document.getElementById("shareTarget");
 
 let debounceTimer;
 let currentTranslation = "";
@@ -48,6 +51,34 @@ function setStatus(message) {
   status.textContent = message;
 }
 
+function renderHistory() {
+  const history = JSON.parse(localStorage.getItem('translationHistory') || '[]');
+  historyList.innerHTML = '';
+
+  if (history.length === 0) {
+    historyList.innerHTML = '<p style="color: var(--muted); font-size: 14px; text-align: center; padding: 12px;">No recent translations</p>';
+    return;
+  }
+
+  history.forEach(item => {
+    const div = document.createElement('div');
+    div.className = 'history-item';
+    div.innerHTML = `
+      <div class="history-source">${item.source}</div>
+      <div class="history-target">${item.target}</div>
+    `;
+    div.addEventListener('click', () => {
+      sourceText.value = item.source;
+      targetText.value = item.target;
+      if (item.from && item.from !== 'auto') sourceLanguage.value = item.from;
+      if (item.to) targetLanguage.value = item.to;
+      currentTranslation = item.target;
+      currentLanguage = item.to;
+    });
+    historyList.appendChild(div);
+  });
+}
+
 async function translate() {
   const text = sourceText.value.trim();
 
@@ -80,6 +111,7 @@ async function translate() {
       currentLanguage = to;
       setStatus("");
       saveToHistory(text, translation, from, to);
+      renderHistory();
     } catch (error) {
       targetText.value = "";
       currentTranslation = "";
@@ -144,6 +176,7 @@ function applyTheme(theme) {
 
 const savedTheme = localStorage.getItem("theme") || "auto";
 applyTheme(savedTheme);
+renderHistory();
 
 // Event listeners
 sourceText.addEventListener("input", translate);
@@ -170,6 +203,30 @@ document.getElementById("speakTarget").addEventListener("click", () =>
   speak(targetText.value || currentTranslation, currentLanguage)
 );
 
+// Share
+shareTarget.addEventListener("click", async () => {
+  const text = targetText.value;
+  if (!text) return;
+
+  if (navigator.share) {
+    try {
+      await navigator.share({
+        title: 'Translation',
+        text: text
+      });
+    } catch {}
+  } else {
+    copyText(text);
+    setStatus("Copied (share not supported)");
+  }
+});
+
+// Clear history
+clearHistoryBtn.addEventListener("click", () => {
+  localStorage.removeItem('translationHistory');
+  renderHistory();
+});
+
 // Microphone
 micSource.addEventListener("click", () => {
   if (!recognition) {
@@ -188,6 +245,20 @@ micSource.addEventListener("click", () => {
   micSource.textContent = "🔴 Listening…";
   setStatus("Listening…");
   recognition.start();
+});
+
+// Keyboard shortcuts
+document.addEventListener("keydown", (e) => {
+  if (e.ctrlKey || e.metaKey) {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      translate();
+    }
+    if (e.key === "l" || e.key === "L") {
+      e.preventDefault();
+      sourceText.focus();
+    }
+  }
 });
 
 // Settings modal
