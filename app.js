@@ -6,10 +6,43 @@ const status = document.getElementById("status");
 const settingsBtn = document.getElementById("settingsBtn");
 const settingsModal = document.getElementById("settingsModal");
 const closeSettings = document.getElementById("closeSettings");
+const micSource = document.getElementById("micSource");
 
 let debounceTimer;
 let currentTranslation = "";
 let currentLanguage = "ar";
+let recognition = null;
+let isListening = false;
+
+// Speech Recognition setup
+if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  recognition = new SpeechRecognition();
+  recognition.continuous = false;
+  recognition.interimResults = true;
+  recognition.lang = 'en-US';
+
+  recognition.onresult = (event) => {
+    let transcript = '';
+    for (let i = event.resultIndex; i < event.results.length; i++) {
+      transcript += event.results[i][0].transcript;
+    }
+    sourceText.value = transcript;
+    translate();
+  };
+
+  recognition.onend = () => {
+    isListening = false;
+    micSource.textContent = '🎙️ Mic';
+    setStatus('');
+  };
+
+  recognition.onerror = () => {
+    isListening = false;
+    micSource.textContent = '🎙️ Mic';
+    setStatus('Mic error');
+  };
+}
 
 function setStatus(message) {
   status.textContent = message;
@@ -46,12 +79,20 @@ async function translate() {
       targetText.value = translation;
       currentLanguage = to;
       setStatus("");
+      saveToHistory(text, translation, from, to);
     } catch (error) {
       targetText.value = "";
       currentTranslation = "";
       setStatus("Translation unavailable");
     }
   }, 550);
+}
+
+function saveToHistory(source, target, from, to) {
+  const history = JSON.parse(localStorage.getItem('translationHistory') || '[]');
+  history.unshift({ source, target, from, to, time: Date.now() });
+  if (history.length > 20) history.pop();
+  localStorage.setItem('translationHistory', JSON.stringify(history));
 }
 
 function copyText(value) {
@@ -69,7 +110,8 @@ function speak(text, language) {
 
   const utterance = new SpeechSynthesisUtterance(text);
   utterance.lang = language === "auto" ? navigator.language || "en-US" : language;
-  utterance.rate = 1;
+  utterance.rate = 0.95;
+  utterance.pitch = 1;
   window.speechSynthesis.speak(utterance);
 }
 
@@ -100,7 +142,6 @@ function applyTheme(theme) {
   });
 }
 
-// Initialize theme
 const savedTheme = localStorage.getItem("theme") || "auto";
 applyTheme(savedTheme);
 
@@ -128,6 +169,26 @@ document.getElementById("speakSource").addEventListener("click", () =>
 document.getElementById("speakTarget").addEventListener("click", () =>
   speak(targetText.value || currentTranslation, currentLanguage)
 );
+
+// Microphone
+micSource.addEventListener("click", () => {
+  if (!recognition) {
+    setStatus("Speech recognition not supported");
+    return;
+  }
+
+  if (isListening) {
+    recognition.stop();
+    return;
+  }
+
+  const lang = sourceLanguage.value === "auto" ? navigator.language || "en-US" : sourceLanguage.value;
+  recognition.lang = lang;
+  isListening = true;
+  micSource.textContent = "🔴 Listening…";
+  setStatus("Listening…");
+  recognition.start();
+});
 
 // Settings modal
 settingsBtn.addEventListener("click", () => {
