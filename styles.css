@@ -1,39 +1,39 @@
 :root {
-  --bg: #f5f5f7;
-  --surface: rgba(255, 255, 255, 0.72);
+  --bg: #f2f2f7;
+  --surface: #ffffff;
   --surface-strong: #ffffff;
-  --text: #1d1d1f;
-  --muted: #6e6e73;
+  --text: #000000;
+  --muted: #8e8e93;
   --border: rgba(0, 0, 0, 0.08);
-  --accent: #0071e3;
-  --shadow: 0 18px 50px rgba(0, 0, 0, 0.08);
+  --accent: #007aff;
+  --shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
 }
 
 [data-theme="dark"] {
   --bg: #000000;
-  --surface: rgba(28, 28, 30, 0.72);
-  --surface-strong: #1c1c1e;
-  --text: #f5f5f7;
+  --surface: #1c1c1e;
+  --surface-strong: #2c2c2e;
+  --text: #ffffff;
   --muted: #98989d;
   --border: rgba(255, 255, 255, 0.12);
   --accent: #0a84ff;
-  --shadow: 0 18px 50px rgba(0, 0, 0, 0.55);
+  --shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
     --bg: #000000;
-    --surface: rgba(28, 28, 30, 0.72);
-    --surface-strong: #1c1c1e;
-    --text: #f5f5f7;
+    --surface: #1c1c1e;
+    --surface-strong: #2c2c2e;
+    --text: #ffffff;
     --muted: #98989d;
     --border: rgba(255, 255, 255, 0.12);
     --accent: #0a84ff;
-    --shadow: 0 18px 50px rgba(0, 0, 0, 0.55);
+    --shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
   }
 }
 
-* { box-sizing: border-box; }
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
 html, body { height: 100%; }
 
@@ -43,182 +43,171 @@ body {
   display: flex;
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   color: var(--text);
-  background:
-    radial-gradient(circle at 15% 10%, rgba(10, 132, 255, 0.16), transparent 35%),
-    radial-gradient(circle at 85% 85%, rgba(94, 92, 230, 0.14), transparent 38%),
-    var(--bg);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
 }
 
 .app {
-  width: min(1120px, 100%);
+  width: min(520px, 100%);
   margin: auto;
-  padding: clamp(16px, 4vw, 40px);
+  padding: 16px 16px 32px;
 }
 
 .header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: clamp(18px, 3vw, 34px);
+  margin-bottom: 20px;
+  padding: 0 4px;
 }
 
 .brand {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
 .brand-icon {
   display: grid;
   place-items: center;
-  width: 42px;
-  height: 42px;
-  border-radius: 14px;
-  background: var(--surface-strong);
-  box-shadow: var(--shadow);
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: var(--surface);
+  font-size: 20px;
 }
 
 h1 {
   margin: 0;
-  font-size: clamp(22px, 4vw, 30px);
+  font-size: 28px;
   font-weight: 700;
-  letter-spacing: -0.03em;
-}
-
-.icon-button,
-.action-button,
-.text-button {
-  border: 0;
-  cursor: pointer;
-  color: var(--text);
-  transition: transform 0.18s ease, opacity 0.18s ease, background 0.18s ease;
+  letter-spacing: -0.04em;
 }
 
 .icon-button {
-  width: 42px;
-  height: 42px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  background: var(--surface);
-  backdrop-filter: blur(20px);
-  border: 1px solid var(--border);
-  font-size: 18px;
+  background: transparent;
+  border: 0;
+  font-size: 20px;
+  color: var(--accent);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
 }
-
-.icon-button:hover,
-.action-button:hover,
-.text-button:hover { transform: translateY(-1px); opacity: 0.88; }
 
 .cards {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
+  gap: 12px;
 }
 
 .card {
+  background: var(--surface);
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: var(--shadow);
   display: flex;
   flex-direction: column;
-  min-height: clamp(300px, 45vh, 420px);
-  padding: 18px;
-  border-radius: 24px;
-  border: 1px solid var(--border);
-  background: var(--surface);
-  backdrop-filter: blur(28px) saturate(160%);
-  box-shadow: var(--shadow);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  min-height: 200px;
 }
-
-.card:hover { transform: translateY(-2px); }
 
 .card-top {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 12px;
-  gap: 12px;
+  margin-bottom: 8px;
 }
 
 .card-language {
-  flex: 1;
-  padding: 10px 14px;
-  border-radius: 12px;
-  border: 1px solid var(--border);
-  background: var(--surface-strong);
-  color: var(--text);
-  font: inherit;
+  appearance: none;
+  background: transparent;
+  border: 0;
+  color: var(--accent);
+  font-size: 15px;
   font-weight: 600;
+  padding: 4px 0;
   outline: none;
+  cursor: pointer;
 }
 
 .text-button {
   background: transparent;
+  border: 0;
   color: var(--accent);
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
 }
 
 textarea {
   flex: 1;
   width: 100%;
-  resize: none;
   border: 0;
   background: transparent;
   color: var(--text);
-  font: inherit;
-  font-size: clamp(18px, 2.5vw, 24px);
-  line-height: 1.45;
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 1.4;
+  resize: none;
   outline: none;
+  font-family: inherit;
+  padding: 4px 0;
 }
 
-textarea::placeholder { color: var(--muted); }
+textarea::placeholder {
+  color: var(--muted);
+  font-weight: 400;
+}
 
 .card-actions {
   display: flex;
   gap: 8px;
-  margin-top: 14px;
+  margin-top: 12px;
 }
 
 .action-button {
-  padding: 10px 16px;
-  border-radius: 999px;
-  background: var(--surface-strong);
-  border: 1px solid var(--border);
-  font-size: 14px;
-  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: 20px;
+  background: rgba(0, 122, 255, 0.1);
+  border: 0;
+  color: var(--accent);
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
 }
 
 .status {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--muted);
 }
 
 .footer {
-  margin-top: 22px;
+  margin-top: 24px;
   text-align: center;
   color: var(--muted);
   font-size: 12px;
 }
 
-/* Modal */
+/* Modal - iOS style */
 .modal {
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.4);
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
   z-index: 1000;
-  backdrop-filter: blur(8px);
 }
 
 .modal.hidden { display: none; }
 
 .modal-content {
-  width: min(420px, 90%);
-  background: var(--surface-strong);
-  border-radius: 20px;
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow);
-  overflow: hidden;
+  width: 100%;
+  max-width: 520px;
+  background: var(--surface);
+  border-radius: 16px 16px 0 0;
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
 .modal-header {
@@ -231,35 +220,32 @@ textarea::placeholder { color: var(--muted); }
 
 .modal-header h2 {
   margin: 0;
-  font-size: 20px;
+  font-size: 17px;
+  font-weight: 600;
 }
 
 .modal-body {
-  padding: 20px;
-  display: grid;
-  gap: 20px;
+  padding: 8px 0 20px;
 }
 
 .setting-item {
-  display: grid;
-  gap: 8px;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border);
 }
 
 .setting-item label {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--muted);
+  font-size: 17px;
 }
 
-.setting-item select,
-.setting-item a {
-  padding: 12px 14px;
-  border-radius: 12px;
-  border: 1px solid var(--border);
-  background: var(--surface);
-  color: var(--text);
-  font: inherit;
-  text-decoration: none;
+.setting-item select {
+  background: transparent;
+  border: 0;
+  color: var(--muted);
+  font-size: 17px;
+  outline: none;
 }
 
 .theme-options {
@@ -268,12 +254,12 @@ textarea::placeholder { color: var(--muted); }
 }
 
 .theme-btn {
-  flex: 1;
-  padding: 10px;
-  border-radius: 12px;
+  padding: 6px 12px;
+  border-radius: 8px;
   border: 1px solid var(--border);
-  background: var(--surface);
+  background: transparent;
   color: var(--text);
+  font-size: 15px;
   cursor: pointer;
 }
 
@@ -283,11 +269,8 @@ textarea::placeholder { color: var(--muted); }
   border-color: var(--accent);
 }
 
-@media (max-width: 760px) {
-  .cards { grid-template-columns: 1fr; }
-}
-
-@media (max-width: 420px) {
-  .card { min-height: 250px; }
-  .action-button { padding: 9px 13px; font-size: 13px; }
+@media (min-width: 600px) {
+  .cards { grid-template-columns: 1fr 1fr; }
+  .modal { align-items: center; }
+  .modal-content { border-radius: 16px; }
 }
