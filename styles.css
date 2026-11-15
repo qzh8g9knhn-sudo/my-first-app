@@ -164,6 +164,7 @@ textarea::placeholder {
   display: flex;
   gap: 8px;
   margin-top: 12px;
+  flex-wrap: wrap;
 }
 
 .action-button {
@@ -179,6 +180,50 @@ textarea::placeholder {
 
 .status {
   font-size: 13px;
+  color: var(--muted);
+}
+
+.history-section {
+  margin-top: 28px;
+}
+
+.history-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.history-header h2 {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.history-list {
+  display: grid;
+  gap: 8px;
+}
+
+.history-item {
+  background: var(--surface);
+  border-radius: 12px;
+  padding: 12px 14px;
+  cursor: pointer;
+  border: 1px solid var(--border);
+}
+
+.history-item:active {
+  opacity: 0.7;
+}
+
+.history-source {
+  font-size: 15px;
+  margin-bottom: 4px;
+}
+
+.history-target {
+  font-size: 14px;
   color: var(--muted);
 }
 
