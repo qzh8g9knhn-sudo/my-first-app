@@ -51,10 +51,11 @@
           </select>
           <button id="clearInput" class="text-button" type="button">Clear</button>
         </div>
-        <textarea id="sourceText" placeholder="Enter text" spellcheck="false"></textarea>
+        <textarea id="sourceText" placeholder="Enter text or tap the mic" spellcheck="false"></textarea>
         <div class="card-actions">
+          <button id="micSource" class="action-button" type="button">🎙️ Mic</button>
           <button id="copySource" class="action-button" type="button">Copy</button>
-          <button id="speakSource" class="action-button" type="button">Listen</button>
+          <button id="speakSource" class="action-button" type="button">🔊</button>
         </div>
       </article>
 
@@ -84,7 +85,7 @@
         <textarea id="targetText" placeholder="Translation" readonly></textarea>
         <div class="card-actions">
           <button id="copyTarget" class="action-button" type="button">Copy</button>
-          <button id="speakTarget" class="action-button" type="button">Listen</button>
+          <button id="speakTarget" class="action-button" type="button">🔊 Listen</button>
         </div>
       </article>
     </section>
