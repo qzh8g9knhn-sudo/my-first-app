@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="color-scheme" content="light dark" />
   <meta name="theme-color" content="#0071e3" />
-  <meta name="description" content="A minimalist, fast translation app. Translate text between Arabic, English, French, German, Spanish, Turkish, and Chinese with text-to-speech support." />
-  <title>Translate — Fast & Simple Translator</title>
+  <meta name="description" content="A minimalist, fast translation app. Translate text between many languages with text-to-speech support." />
+  <title>Translate</title>
   <link rel="manifest" href="manifest.json" />
   <link rel="icon" href="icon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="styles.css" />
@@ -14,60 +14,41 @@
 <body>
   <main class="app">
     <header class="header">
+      <button id="settingsBtn" class="icon-button" type="button" aria-label="Settings">
+        ⚙️
+      </button>
       <div class="brand">
         <span class="brand-icon" aria-hidden="true">🌐</span>
         <h1>Translate</h1>
       </div>
-      <button id="themeToggle" class="icon-button" type="button" aria-label="Toggle appearance">
-        <span aria-hidden="true">◐</span>
-      </button>
-    </header>
-
-    <section class="language-bar" aria-label="Language selection">
-      <div class="language-field">
-        <label for="sourceLanguage">From</label>
-        <select id="sourceLanguage">
-          <option value="auto" selected>Auto-detect</option>
-          <option value="en">English</option>
-          <option value="ar">Arabic</option>
-          <option value="fr">French</option>
-          <option value="de">German</option>
-          <option value="es">Spanish</option>
-          <option value="tr">Turkish</option>
-          <option value="zh-CN">Chinese</option>
-          <option value="it">Italian</option>
-          <option value="pt">Portuguese</option>
-          <option value="ru">Russian</option>
-          <option value="ja">Japanese</option>
-        </select>
-      </div>
-
-      <button id="swapLanguages" class="icon-button swap" type="button" aria-label="Swap languages">
+      <button id="swapLanguages" class="icon-button" type="button" aria-label="Swap languages">
         ⇄
       </button>
-
-      <div class="language-field">
-        <label for="targetLanguage">To</label>
-        <select id="targetLanguage">
-          <option value="ar" selected>Arabic</option>
-          <option value="en">English</option>
-          <option value="fr">French</option>
-          <option value="de">German</option>
-          <option value="es">Spanish</option>
-          <option value="tr">Turkish</option>
-          <option value="zh-CN">Chinese</option>
-          <option value="it">Italian</option>
-          <option value="pt">Portuguese</option>
-          <option value="ru">Russian</option>
-          <option value="ja">Japanese</option>
-        </select>
-      </div>
-    </section>
+    </header>
 
     <section class="cards">
       <article class="card">
         <div class="card-top">
-          <span class="card-label">Source text</span>
+          <select id="sourceLanguage" class="card-language">
+            <option value="auto" selected>Auto-detect</option>
+            <option value="en">English</option>
+            <option value="ar">العربية</option>
+            <option value="fr">Français</option>
+            <option value="de">Deutsch</option>
+            <option value="es">Español</option>
+            <option value="tr">Türkçe</option>
+            <option value="zh-CN">中文</option>
+            <option value="it">Italiano</option>
+            <option value="pt">Português</option>
+            <option value="ru">Русский</option>
+            <option value="ja">日本語</option>
+            <option value="ko">한국어</option>
+            <option value="hi">हिन्दी</option>
+            <option value="nl">Nederlands</option>
+            <option value="pl">Polski</option>
+            <option value="sv">Svenska</option>
+            <option value="id">Bahasa Indonesia</option>
+          </select>
           <button id="clearInput" class="text-button" type="button">Clear</button>
         </div>
         <textarea id="sourceText" placeholder="Enter text" spellcheck="false"></textarea>
@@ -79,7 +60,25 @@
 
       <article class="card output">
         <div class="card-top">
-          <span class="card-label">Translation</span>
+          <select id="targetLanguage" class="card-language">
+            <option value="ar" selected>العربية</option>
+            <option value="en">English</option>
+            <option value="fr">Français</option>
+            <option value="de">Deutsch</option>
+            <option value="es">Español</option>
+            <option value="tr">Türkçe</option>
+            <option value="zh-CN">中文</option>
+            <option value="it">Italiano</option>
+            <option value="pt">Português</option>
+            <option value="ru">Русский</option>
+            <option value="ja">日本語</option>
+            <option value="ko">한국어</option>
+            <option value="hi">हिन्दी</option>
+            <option value="nl">Nederlands</option>
+            <option value="pl">Polski</option>
+            <option value="sv">Svenska</option>
+            <option value="id">Bahasa Indonesia</option>
+          </select>
           <span id="status" class="status" role="status"></span>
         </div>
         <textarea id="targetText" placeholder="Translation" readonly></textarea>
@@ -90,8 +89,39 @@
       </article>
     </section>
 
-    <p class="footer">Powered by MyMemory · Works best in Chrome, Edge, or Safari</p>
+    <p class="footer">Powered by MyMemory</p>
   </main>
+
+  <!-- Settings Modal -->
+  <div id="settingsModal" class="modal hidden">
+    <div class="modal-content">
+      <header class="modal-header">
+        <h2>Settings</h2>
+        <button id="closeSettings" class="icon-button" type="button" aria-label="Close">✕</button>
+      </header>
+      <div class="modal-body">
+        <div class="setting-item">
+          <label for="appLanguage">App Language</label>
+          <select id="appLanguage">
+            <option value="en">English</option>
+            <option value="ar">العربية</option>
+            <option value="de">Deutsch</option>
+          </select>
+        </div>
+        <div class="setting-item">
+          <label>Appearance</label>
+          <div class="theme-options">
+            <button data-theme="light" class="theme-btn">Light</button>
+            <button data-theme="dark" class="theme-btn">Dark</button>
+            <button data-theme="auto" class="theme-btn active">Auto</button>
+          </div>
+        </div>
+        <div class="setting-item">
+          <a href="#" id="termsLink">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <script src="app.js"></script>
   <script>
