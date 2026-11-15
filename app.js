@@ -3,6 +3,9 @@ const targetText = document.getElementById("targetText");
 const sourceLanguage = document.getElementById("sourceLanguage");
 const targetLanguage = document.getElementById("targetLanguage");
 const status = document.getElementById("status");
+const settingsBtn = document.getElementById("settingsBtn");
+const settingsModal = document.getElementById("settingsModal");
+const closeSettings = document.getElementById("closeSettings");
 
 let debounceTimer;
 let currentTranslation = "";
@@ -84,6 +87,24 @@ function swapLanguages() {
   translate();
 }
 
+// Theme handling
+function applyTheme(theme) {
+  if (theme === "auto") {
+    document.documentElement.removeAttribute("data-theme");
+  } else {
+    document.documentElement.setAttribute("data-theme", theme);
+  }
+  localStorage.setItem("theme", theme);
+  document.querySelectorAll(".theme-btn").forEach(btn => {
+    btn.classList.toggle("active", btn.dataset.theme === theme);
+  });
+}
+
+// Initialize theme
+const savedTheme = localStorage.getItem("theme") || "auto";
+applyTheme(savedTheme);
+
+// Event listeners
 sourceText.addEventListener("input", translate);
 sourceLanguage.addEventListener("change", translate);
 targetLanguage.addEventListener("change", translate);
@@ -108,7 +129,24 @@ document.getElementById("speakTarget").addEventListener("click", () =>
   speak(targetText.value || currentTranslation, currentLanguage)
 );
 
-document.getElementById("themeToggle").addEventListener("click", () => {
-  document.documentElement.style.colorScheme =
-    document.documentElement.style.colorScheme === "dark" ? "light" : "dark";
+// Settings modal
+settingsBtn.addEventListener("click", () => {
+  settingsModal.classList.remove("hidden");
+});
+
+closeSettings.addEventListener("click", () => {
+  settingsModal.classList.add("hidden");
+});
+
+settingsModal.addEventListener("click", (e) => {
+  if (e.target === settingsModal) settingsModal.classList.add("hidden");
+});
+
+document.querySelectorAll(".theme-btn").forEach(btn => {
+  btn.addEventListener("click", () => applyTheme(btn.dataset.theme));
+});
+
+document.getElementById("termsLink").addEventListener("click", (e) => {
+  e.preventDefault();
+  alert("Terms of Service: This app uses the free MyMemory Translation API. Translations are provided as-is.");
 });
